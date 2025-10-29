@@ -30,8 +30,8 @@
         
         header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
+            margin-bottom: 10px;
+            padding: 2px;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border-radius: var(--border-radius);
@@ -39,8 +39,8 @@
         }
         
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            margin-bottom: 2px;
         }
         
         .subtitle {
@@ -51,7 +51,7 @@
         .main-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            gap: 10px;
             margin-bottom: 30px;
         }
         
@@ -65,16 +65,16 @@
             background-color: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            padding: 20px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
         }
         
         .text-section h2 {
-            margin-bottom: 15px;
+            margin-bottom: 5px;
             color: var(--primary-color);
             border-bottom: 2px solid var(--light-color);
-            padding-bottom: 10px;
+            padding-bottom: 2px;
         }
         
         .text-container {
@@ -85,8 +85,8 @@
         
         textarea {
             width: 100%;
-            min-height: 200px;
-            padding: 15px;
+            min-height: 150px;
+            padding: 5px;
             border: 1px solid #ddd;
             border-radius: var(--border-radius);
             resize: vertical;
@@ -107,6 +107,50 @@
             gap: 10px;
             flex-wrap: wrap;
         }
+
+        /* Icon-only buttons (used for copy icons) */
+        .icon-only {
+            padding: 8px;
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-only i { font-size: 18px; }
+
+        /* Heading row: title on left, actions (icons/buttons) on right */
+        .heading-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            gap: 12px;
+        }
+
+        .heading-row h2 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .heading-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        /* Responsive: stack heading actions under title on narrow screens */
+        @media (max-width: 480px) {
+            .heading-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .heading-actions {
+                justify-content: flex-start;
+            }
+        }
         
         button {
             padding: 10px 15px;
@@ -123,7 +167,7 @@
         }
         
         .btn-primary {
-            background-color: var(--primary-color);
+            background-color: #26ad62b0;
             color: white;
         }
         
@@ -337,32 +381,55 @@
             background-color: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            padding: 20px;
-            margin-top: 30px;
+            padding: 5px;
+            margin-top: 8px;
         }
         
         .log-section h2 {
-            margin-bottom: 15px;
+            margin-bottom: 2px;
             color: var(--primary-color);
             border-bottom: 2px solid var(--light-color);
-            padding-bottom: 10px;
+            padding-bottom: 2px;
         }
         
         .log-container {
-            max-height: 200px;
+            max-height: 400px;
             overflow-y: auto;
             border: 1px solid #ddd;
             border-radius: var(--border-radius);
             padding: 10px;
             background-color: #f8f9fa;
-            font-family: monospace;
             font-size: 12px;
         }
         
+        /* Each log entry is now a row with two columns (original | translation) */
         .log-entry {
-            padding: 5px 0;
+            padding: 6px 0;
             border-bottom: 1px solid #eee;
             font-size: 0.9rem;
+        }
+
+        .log-row {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .log-col {
+            flex: 1 1 50%;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .log-col-original { color: var(--dark-color); }
+        .log-col-translation { color: #22543d; font-style: normal; }
+
+        .log-header {
+            background-color: #eef6ff;
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
         
         .log-entry:last-child {

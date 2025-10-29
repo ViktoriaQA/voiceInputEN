@@ -348,7 +348,15 @@ let isRecording = false;
 let deepSeekApiKey = localStorage.getItem('deepSeekApiKey') || '';
 let sourceLanguage = 'en';
 let targetLanguage = 'uk';
+// Load voice log and ensure entries have a translation field for backward compatibility
 let voiceLog = JSON.parse(localStorage.getItem('voiceLog')) || [];
+voiceLog = voiceLog.map(entry => {
+    // If old entries were stored as plain strings or missing translation, normalize
+    if (typeof entry === 'string') {
+        return { text: entry, translation: '', timestamp: new Date().toLocaleTimeString() };
+    }
+    return Object.assign({ translation: '' }, entry);
+});
 
 // Ініціалізація TranslationService
 const translationService = new TranslationService();
@@ -636,34 +644,80 @@ function togglePasswordVisibility() {
     }
 }
 
-function addToLog(text) {
+// Add entry to voice log and fetch Ukrainian translation asynchronously
+async function addToLog(text) {
     const timestamp = new Date().toLocaleTimeString();
-    voiceLog.unshift({ text, timestamp });
-    
+
+    // Insert a placeholder entry with empty translation so UI updates immediately
+    const entry = { text, translation: '', timestamp };
+    voiceLog.unshift(entry);
+
     if (voiceLog.length > 50) {
         voiceLog = voiceLog.slice(0, 50);
     }
-    
+
+    localStorage.setItem('voiceLog', JSON.stringify(voiceLog));
+    updateLogDisplay();
+
+    // Perform translation and update the entry when available
+    try {
+        const result = await translationService.translateText(text, sourceLanguage, targetLanguage);
+        entry.translation = result.success ? result.text : '[Переклад не доступний]';
+    } catch (err) {
+        console.error('Помилка при отриманні перекладу для журналу:', err);
+        entry.translation = '[Помилка перекладу]';
+    }
+
+    // Persist and refresh UI
     localStorage.setItem('voiceLog', JSON.stringify(voiceLog));
     updateLogDisplay();
 }
 
 function updateLogDisplay() {
     if (!elements.voiceLogContainer) return;
-    
     elements.voiceLogContainer.innerHTML = '';
-    
+
     if (voiceLog.length === 0) {
         elements.voiceLogContainer.innerHTML = '<div class="log-entry">Журнал порожній. Почніть розмову...</div>';
         return;
     }
-    
+
+    // Optional header row for columns
+    const headerRow = document.createElement('div');
+    headerRow.className = 'log-entry log-row log-header';
+    headerRow.innerHTML = `
+        <div class="log-col log-col-original"><strong>Оригінал (EN)</strong></div>
+        <div class="log-col log-col-translation"><strong>Переклад (UA)</strong></div>
+    `;
+    elements.voiceLogContainer.appendChild(headerRow);
+
     voiceLog.forEach(entry => {
-        const logEntry = document.createElement('div');
-        logEntry.className = 'log-entry';
-        logEntry.innerHTML = `<span class="log-time">${entry.timestamp}</span> ${entry.text}`;
-        elements.voiceLogContainer.appendChild(logEntry);
+        const row = document.createElement('div');
+        row.className = 'log-entry log-row';
+
+        const originalCol = document.createElement('div');
+        originalCol.className = 'log-col log-col-original';
+        originalCol.innerHTML = `<span class="log-time">${entry.timestamp}</span> ${escapeHtml(entry.text)}`;
+
+        const translationCol = document.createElement('div');
+        translationCol.className = 'log-col log-col-translation';
+        translationCol.textContent = entry.translation || 'Переклад...';
+
+        row.appendChild(originalCol);
+        row.appendChild(translationCol);
+
+        elements.voiceLogContainer.appendChild(row);
     });
+}
+
+// Simple HTML escape to avoid injection in logs
+function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
 }
 
 function clearVoiceLogHandler() {

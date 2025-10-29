@@ -20,37 +20,51 @@
         
         <div class="main-content">
             <div class="text-section">
-                <h2>Англійський текст (EN)</h2>
-                <div class="text-container">
-                    <textarea id="englishText" placeholder="Текст англійською мовою..."></textarea>
-                    <div class="button-group">
+                <div class="heading-row">
+                    <h2>Англійський текст (EN)</h2>
+                    <div class="heading-actions">
                         <button class="btn-primary" id="micButton">
                             <i>🎤</i> Голосовий ввід
                         </button>
-                        <button class="btn-secondary" id="copyEnglish">
-                            <i>📋</i> Копіювати
+                        <button class="btn-secondary icon-only" id="copyEnglish" aria-label="Копіювати англійський текст" title="Копіювати англійський текст">
+                            <i>📋</i>
                         </button>
                     </div>
+                </div>
+                <div class="text-container">
+                    <textarea id="englishText" placeholder="Текст англійською мовою..."></textarea>
                 </div>
             </div>
             
             <div class="text-section">
-                <h2>Український переклад (UA)</h2>
-                <div class="text-container">
-                    <textarea id="ukrainianText" placeholder="Переклад українською мовою..." readonly></textarea>
-                    <div class="status-indicator" id="translationStatus"></div>
-                    <div class="button-group">
-                        <button class="btn-secondary" id="copyUkrainian">
-                            <i>📋</i> Копіювати
+                <div class="heading-row">
+                    <h2>Український переклад (UA)</h2>
+                    <div class="heading-actions">
+                        <button class="btn-secondary icon-only" id="copyUkrainian" aria-label="Копіювати переклад українською" title="Копіювати переклад українською">
+                            <i>📋</i>
                         </button>
                         <button class="btn-accent" id="clearText">
-                            <i>🗑️</i> Очистити все
+                            <i>🗑️</i>
                         </button>
                     </div>
                 </div>
+                <div class="text-container">
+                    <textarea id="ukrainianText" placeholder="Переклад українською мовою..." readonly></textarea>
+                    <div class="status-indicator" id="translationStatus"></div>
+                </div>
             </div>
         </div>
-        
+   
+        <div class="log-section">
+            <!-- <h2>Журнал голосових введень</h2> -->
+            <div class="log-container" id="voiceLogContainer">
+                <div class="log-entry">Журнал порожній. Почніть розмову...</div>
+            </div>
+            <button class="btn-secondary clear-log" id="clearVoiceLog">
+                <i>🗑️</i> Очистити журнал голосу
+            </button>
+        </div>
+             
         <div class="qa-section">
             <h2>Відповіді на запитання</h2>
             <div id="questionIndicator" class="question-detected" style="display: none;">
@@ -60,17 +74,7 @@
                 <p>Тут будуть відображатись відповіді на ваші запитання. Для роботи необхідно ввести API ключ DeepSeek.</p>
             </div>
         </div>
-        
-        <div class="log-section">
-            <h2>Журнал голосових введень</h2>
-            <div class="log-container" id="voiceLogContainer">
-                <div class="log-entry">Журнал порожній. Почніть розмову...</div>
-            </div>
-            <button class="btn-secondary clear-log" id="clearVoiceLog">
-                <i>🗑️</i> Очистити журнал голосу
-            </button>
-        </div>
-        
+                
         <div class="log-section">
             <h2>Журнал перекладу</h2>
             <div class="log-container" id="translationLogContainer">
