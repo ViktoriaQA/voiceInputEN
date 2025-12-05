@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Голосовий асистент з перекладом</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
@@ -24,10 +25,10 @@
                     <h2>Англійський текст (EN)</h2>
                     <div class="heading-actions">
                         <button class="btn-primary" id="micButton">
-                            <i>🎤</i> Голосовий ввід
+                            <i class="material-icons">mic</i> Голосовий ввід
                         </button>
                         <button class="btn-secondary icon-only" id="copyEnglish" aria-label="Копіювати англійський текст" title="Копіювати англійський текст">
-                            <i>📋</i>
+                            <i class="material-icons">content_copy</i>
                         </button>
                     </div>
                 </div>
@@ -41,10 +42,10 @@
                     <h2>Український переклад (UA)</h2>
                     <div class="heading-actions">
                         <button class="btn-secondary icon-only" id="copyUkrainian" aria-label="Копіювати переклад українською" title="Копіювати переклад українською">
-                            <i>📋</i>
+                            <i class="material-icons">content_copy</i>
                         </button>
                         <button class="btn-accent" id="clearText">
-                            <i>🗑️</i>
+                            <i class="material-icons">delete</i>
                         </button>
                     </div>
                 </div>
@@ -61,7 +62,7 @@
                 <div class="log-entry">Журнал порожній. Почніть розмову...</div>
             </div>
             <button class="btn-secondary clear-log" id="clearVoiceLog">
-                <i>🗑️</i> Очистити журнал голосу
+                <i class="material-icons">delete</i> Очистити журнал голосу
             </button>
         </div>
              
@@ -81,7 +82,7 @@
                 <div class="log-entry">Журнал перекладу порожній. Почніть використовувати переклад...</div>
             </div>
             <button class="btn-secondary clear-log" id="clearTranslationLog">
-                <i>🗑️</i> Очистити журнал перекладу
+                <i class="material-icons">delete</i> Очистити журнал перекладу
             </button>
         </div>
 
@@ -90,7 +91,7 @@
             <p>Для роботи Q&A функції введіть ваш API ключ DeepSeek:</p>
             <div class="api-key-input-container">
                 <input type="password" class="api-key-input" id="apiKeyInput" placeholder="Введіть ваш DeepSeek API ключ">
-                <button type="button" class="toggle-password" id="togglePassword">👁️</button>
+                <button type="button" class="toggle-password" id="togglePassword"><i class="material-icons">visibility</i></button>
             </div>
             <button class="btn-primary" id="saveApiKey">Зберегти ключ</button>
             <p class="translation-info">Переклад реалізовано через мульти-сервісну систему з автоматичним перемиканням</p>

@@ -175,6 +175,18 @@
             background-color: var(--secondary-color);
         }
         
+        .btn-primary.recording {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-primary.recording:hover {
+            background-color: #ff5252;
+        }
+        
+        .btn-primary.recording .material-icons {
+            color: white;
+        }
+        
         .btn-secondary {
             background-color: var(--light-color);
             color: var(--dark-color);

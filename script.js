@@ -417,13 +417,19 @@ function init() {
         // Обробники подій розпізнавання
         recognition.onstart = function() {
             isRecording = true;
-            if (elements.micButton) elements.micButton.innerHTML = '<i>⏹️</i> Зупинити запис';
+            if (elements.micButton) {
+                elements.micButton.innerHTML = '<i class="material-icons">stop</i> Зупинити запис';
+                elements.micButton.classList.add('recording');
+            }
             if (elements.recordingIndicator) elements.recordingIndicator.classList.add('active');
         };
         
         recognition.onend = function() {
             isRecording = false;
-            if (elements.micButton) elements.micButton.innerHTML = '<i>🎤</i> Голосовий ввід';
+            if (elements.micButton) {
+                elements.micButton.innerHTML = '<i class="material-icons">mic</i> Голосовий ввід';
+                elements.micButton.classList.remove('recording');
+            }
             if (elements.recordingIndicator) elements.recordingIndicator.classList.remove('active');
         };
         
@@ -635,12 +641,15 @@ function saveApiKeyHandler() {
 function togglePasswordVisibility() {
     if (!elements.apiKeyInput || !elements.togglePassword) return;
     
+    const icon = elements.togglePassword.querySelector('.material-icons');
+    if (!icon) return;
+    
     if (elements.apiKeyInput.type === 'password') {
         elements.apiKeyInput.type = 'text';
-        elements.togglePassword.textContent = '🙈';
+        icon.textContent = 'visibility_off';
     } else {
         elements.apiKeyInput.type = 'password';
-        elements.togglePassword.textContent = '👁️';
+        icon.textContent = 'visibility';
     }
 }
 
